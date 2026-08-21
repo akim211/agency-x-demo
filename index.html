@@ -30,19 +30,26 @@
 
   <!-- PASTE YOUR EMBEDDED MESSAGING SNIPPET BELOW THIS LINE -->
   <!--
-  <script type="text/javascript">
-    // Example structure (replace with your actual snippet from Setup):
-    //
-    // var initESW = function(gslbBaseURL) {
-    //   embeddedservice_bootstrap.init(
-    //     '00DKc00000C67ebMAB',                              // orgId
-    //     'Your_Deployment_Name',                             // esDeveloperName
-    //     'https://storm-a7ca23ca3f0711.my.site.com',         // siteUrl
-    //     { scrt2URL: 'https://storm-a7ca23ca3f0711.my.salesforce-scrt.com' }
-    //   );
-    // };
-  </script>
-  -->
+<script type='text/javascript'>
+	function initEmbeddedMessaging() {
+		try {
+			embeddedservice_bootstrap.settings.language = 'en_US'; // For example, enter 'en' or 'en-US'
+
+			embeddedservice_bootstrap.init(
+				'00DKc00000C67eb',
+				'GPS_Messaging_for_Web',
+				'https://storm-a7ca23ca3f0711.my.site.com/ESWGPSMessagingforWeb1783982275431',
+				{
+					scrt2URL: 'https://storm-a7ca23ca3f0711.my.salesforce-scrt.com'
+				}
+			);
+		} catch (err) {
+			console.error('Error loading Embedded Messaging: ', err);
+		}
+	};
+</script>
+<script type='text/javascript' src='https://storm-a7ca23ca3f0711.my.site.com/ESWGPSMessagingforWeb1783982275431/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+
   <!-- PASTE YOUR EMBEDDED MESSAGING SNIPPET ABOVE THIS LINE -->
 
   <style>
