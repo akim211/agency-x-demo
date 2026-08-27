@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drought Relief Grant Application - Indiana Department of Agriculture</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+        .agency-header {
+            background: linear-gradient(135deg, #1a472a 0%, #2d6a4f 100%);
+            color: white;
+            padding: 12px 0;
+            border-bottom: 4px solid #d4a843;
+        }
+        .agency-header-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .agency-seal {
+            width: 48px; height: 48px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 28px;
+        }
+        .agency-header h1 { font-size: 18px; font-weight: 600; }
+        .agency-header p { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+        .agency-nav {
+            background: #1a472a;
+            padding: 0;
+        }
+        .agency-nav-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex; gap: 0;
+        }
+        .agency-nav a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: 10px 18px;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.15s;
+            border-bottom: 2px solid transparent;
+        }
+        .agency-nav a:hover, .agency-nav a.active {
+            color: white;
+            background: rgba(255,255,255,0.08);
+            border-bottom-color: #d4a843;
+        }
+        .breadcrumb {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 14px 24px;
+            font-size: 12px;
+            color: #666;
+        }
+        .breadcrumb a { color: #2d6a4f; text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+        .breadcrumb span { margin: 0 6px; }
+        .main-content {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 24px 60px;
+        }
+        .form-intro {
+            background: white;
+            border-radius: 8px;
+            padding: 28px 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            border-left: 4px solid #2d6a4f;
+        }
+        .form-intro h2 {
+            font-size: 22px;
+            color: #1a472a;
+            margin-bottom: 8px;
+        }
+        .form-intro p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        .form-intro .badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2d6a4f;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        .form-section {
+            background: white;
+            border-radius: 8px;
+            padding: 28px 32px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+        .form-section h3 {
+            font-size: 16px;
+            color: #1a472a;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .form-row.full { grid-template-columns: 1fr; }
+        .form-group { display: flex; flex-direction: column; }
+        .form-group label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 5px;
+        }
+        .form-group label .required { color: #c62828; }
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 10px 14px;
+            border: 1px solid #d0d0d0;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #2d6a4f;
+            box-shadow: 0 0 0 3px rgba(45,106,79,0.12);
+        }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+        .btn-primary {
+            background: #2d6a4f;
+            color: white;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-primary:hover { background: #1a472a; }
+        .btn-secondary {
+            background: white;
+            color: #2d6a4f;
+            border: 1px solid #2d6a4f;
+            padding: 12px 32px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-secondary:hover { background: #f0f7f4; }
+        .agency-footer {
+            background: #1a472a;
+            color: rgba(255,255,255,0.7);
+            padding: 24px 0;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        @media (max-width: 768px) {
+            .form-row { grid-template-columns: 1fr; }
+            .agency-header-inner { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="agency-header">
+        <div class="agency-header-inner">
+            <div class="agency-seal">🌾</div>
+            <div>
+                <h1>Indiana Department of Agriculture</h1>
+                <p>Grants, Permits & Agricultural Services</p>
+            </div>
+        </div>
+    </div>
+    <div class="agency-nav">
+        <div class="agency-nav-inner">
+            <a href="#">Home</a>
+            <a href="#" class="active">Grants & Assistance</a>
+            <a href="#">Permits</a>
+            <a href="#">Resources</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+    <div class="breadcrumb">
+        <a href="#">Home</a> <span>›</span>
+        <a href="#">Grants & Assistance</a> <span>›</span>
+        Drought Relief Grant Application
+    </div>
+    <div class="main-content">
+        <div class="form-intro">
+            <h2>Drought Relief Grant Application</h2>
+            <p>
+                The Drought Relief Grant Program provides financial assistance to Indiana farmers
+                affected by drought conditions. Eligible applicants may receive up to $15,000
+                to cover crop loss, livestock feed, and water infrastructure costs.
+            </p>
+            <span class="badge">📋 Application Period: June 1 – September 30, 2026</span>
+        </div>
+        <div class="form-section">
+            <h3>1. Applicant Information</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>First Name <span class="required">*</span></label>
+                    <input type="text" name="fname" id="fname" placeholder="Enter first name" required>
+                </div>
+                <div class="form-group">
+                    <label>Last Name <span class="required">*</span></label>
+                    <input type="text" name="lname" id="lname" placeholder="Enter last name" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Email Address <span class="required">*</span></label>
+                    <input type="email" name="email" id="email" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" name="phone" placeholder="(555) 123-4567">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>MyState SSO Reference ID</label>
+                    <input type="text" name="sso_id" id="sso_id" placeholder="Auto-filled if linked" readonly>
+                </div>
+                <div class="form-group">
+                    <label>County <span class="required">*</span></label>
+                    <select name="county" required>
+                        <option value="">Select county...</option>
+                        <option value="bartholomew">Bartholomew</option>
+                        <option value="clay">Clay</option>
+                        <option value="greene">Greene</option>
+                        <option value="jackson">Jackson</option>
+                        <option value="johnson">Johnson</option>
+                        <option value="knox">Knox</option>
+                        <option value="lawrence">Lawrence</option>
+                        <option value="martin">Martin</option>
+                        <option value="monroe">Monroe</option>
+                        <option value="morgan">Morgan</option>
+                        <option value="owen">Owen</option>
+                        <option value="putnam">Putnam</option>
+                        <option value="sullivan">Sullivan</option>
+                        <option value="vigo">Vigo</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-section">
+            <h3>2. Farm Details</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Farm Name</label>
+                    <input type="text" name="farmName" placeholder="e.g., Thornton Family Farm">
+                </div>
+                <div class="form-group">
+                    <label>Total Acreage <span class="required">*</span></label>
+                    <input type="number" name="acreage" placeholder="e.g., 450" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Primary Crop(s)</label>
+                    <input type="text" name="crops" placeholder="e.g., Corn, Soybeans, Wheat">
+                </div>
+                <div class="form-group">
+                    <label>Livestock Count</label>
+                    <input type="number" name="livestock" placeholder="e.g., 120">
+                </div>
+            </div>
+        </div>
+        <div class="form-section">
+            <h3>3. Drought Impact Assessment</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Estimated Crop Loss (%) <span class="required">*</span></label>
+                    <select name="cropLoss" required>
+                        <option value="">Select range...</option>
+                        <option value="10-25">10–25% loss</option>
+                        <option value="25-50">25–50% loss</option>
+                        <option value="50-75">50–75% loss</option>
+                        <option value="75-100">75–100% loss</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Estimated Financial Impact ($) <span class="required">*</span></label>
+                    <input type="number" name="financialImpact" placeholder="e.g., 35000" required>
+                </div>
+            </div>
+            <div class="form-row full">
+                <div class="form-group">
+                    <label>Describe Drought Impact on Your Operation <span class="required">*</span></label>
+                    <textarea name="impactDescription" rows="4" placeholder="Describe how the drought has affected your farming operations, including crop conditions, water availability, and livestock impact..." required></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="form-section">
+            <h3>4. Assistance Requested</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Grant Amount Requested ($) <span class="required">*</span></label>
+                    <input type="number" name="grantAmount" placeholder="Up to $15,000" max="15000" required>
+                </div>
+                <div class="form-group">
+                    <label>Assistance Type <span class="required">*</span></label>
+                    <select name="assistanceType" required>
+                        <option value="">Select type...</option>
+                        <option value="crop_loss">Crop Loss Compensation</option>
+                        <option value="livestock_feed">Livestock Feed Assistance</option>
+                        <option value="water_infra">Water Infrastructure</option>
+                        <option value="combination">Combination of Above</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row full">
+                <div class="form-group">
+                    <label>How will grant funds be used?</label>
+                    <textarea name="fundUsage" rows="3" placeholder="Describe planned use of funds..."></textarea>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn-secondary">Save Draft</button>
+                <button type="button" class="btn-primary" onclick="alert('This is a demo form. In production, this would submit your application.')">Submit Application</button>
+            </div>
+        </div>
+    </div>
+    <div class="agency-footer">
+        <p>Indiana Department of Agriculture | 1 N Capitol Ave, Indianapolis, IN 46204 | (317) 232-8770</p>
+        <p style="margin-top: 6px;">This is a demo application for the MyState Digital Front Door project.</p>
+    </div>
+    <script src="chat-widget.js"></script>
+</body>
+</html>
