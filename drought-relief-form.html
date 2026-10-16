@@ -475,7 +475,6 @@
             try {
                 embeddedservice_bootstrap.settings.language = 'en_US';
 
-                // Pass URL params as pre-chat context so the agent knows who James is
                 const params = new URLSearchParams(window.location.search);
                 const fname = params.get('fname') || '';
                 const lname = params.get('lname') || '';
@@ -489,18 +488,16 @@
 
                 embeddedservice_bootstrap.init(
                     '00DKc00000C67eb',
-                    'Agency_X_Messaging_for_Web',
-                    'https://storm-a7ca23ca3f0711.my.site.com/ESWAgencyXMessa1792122804865',
+                    'DFD_Messaging_for_Web',
+                    'https://storm-a7ca23ca3f0711.my.site.com/ESWDFDMessagingforWeb1787345973049',
                     {
                         scrt2URL: 'https://storm-a7ca23ca3f0711.my.salesforce-scrt.com'
                     }
                 );
 
-                // Auto-open chat and send greeting once SDK is ready
                 window.addEventListener('onEmbeddedMessagingReady', function() {
                     embeddedservice_bootstrap.utilAPI.launchChat();
 
-                    // Send opening context message if we know who this is
                     if (fname) {
                         setTimeout(function() {
                             const greeting = 'Hi, I\'m ' + fname + ' ' + lname + '. I was referred here from the MyState Portal to apply for the Drought Relief Grant. My farm is ' + farmName + ' in ' + county + ' County — ' + acreage + ' acres total, ' + acresAffected + ' acres affected, growing ' + crops + '. Estimated crop loss is ' + cropLoss + '% and financial impact is $' + financialImpact + '.';
@@ -514,7 +511,7 @@
             }
         };
     </script>
-    <script type='text/javascript' src='https://storm-a7ca23ca3f0711.my.site.com/ESWAgencyXMessa1792122804865/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+    <script type='text/javascript' src='https://storm-a7ca23ca3f0711.my.site.com/ESWDFDMessagingforWeb1787345973049/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
 
     <script>
         function handleSubmit() {
@@ -524,6 +521,31 @@
             document.getElementById('successState').style.display = 'block';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+    </script>
+
+    <script>
+        // Pre-fill form fields from URL params
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const fields = ['fname','lname','email','sso_id'];
+            fields.forEach(function(f) {
+                const el = document.querySelector('[name="' + f + '"]');
+                if (el && params.get(f)) el.value = params.get(f);
+            });
+            const countyEl = document.querySelector('[name="county"]');
+            if (countyEl && params.get('county')) countyEl.value = params.get('county');
+            const textFields = ['phone','farmName','farmReg','acreage','crops','acresAffected','financialImpact'];
+            textFields.forEach(function(f) {
+                const el = document.querySelector('[name="' + f + '"]');
+                if (el && params.get(f)) el.value = params.get(f);
+            });
+            const cropLossEl = document.querySelector('[name="cropLoss"]');
+            if (cropLossEl && params.get('cropLoss')) {
+                const val = params.get('cropLoss');
+                const map = {'10-24':'10-24','25-49':'25-49','50-74':'50-74','50-75':'50-74','75-100':'75-100'};
+                cropLossEl.value = map[val] || val;
+            }
+        })();
     </script>
 </body>
 </html>
