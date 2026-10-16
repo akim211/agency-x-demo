@@ -446,7 +446,7 @@
                     For questions, call <strong>(123) 456-8770</strong> or reference your confirmation number above.
                 </div>
                 <div class="success-actions">
-                    <a id="returnPortalBtnSuccess" href="#" class="btn-primary" style="display:none; text-decoration:none;">← Return to MyState Portal</a>
+                    <a href="https://storm-a7ca23ca3f0711.my.site.com" class="btn-primary" style="text-decoration:none;">← Return to MyState Portal</a>
                     <button type="button" class="btn-secondary" onclick="window.print()">Print Confirmation</button>
                 </div>
             </div>
@@ -459,18 +459,6 @@
     </div>
     <script src="chat-widget.js"></script>
     <script>
-        (function() {
-            const params = new URLSearchParams(window.location.search);
-            const returnUrl = params.get('returnUrl');
-            if (returnUrl) {
-                const successBtn = document.getElementById('returnPortalBtnSuccess');
-                if (successBtn) {
-                    successBtn.href = returnUrl;
-                    successBtn.style.display = 'inline-block';
-                }
-            }
-        })();
-
         function handleSubmit() {
             const num = 'DRG-2026-' + String(Math.floor(10000 + Math.random() * 90000));
             document.getElementById('refNumber').textContent = num;
