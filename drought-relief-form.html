@@ -246,7 +246,6 @@
             justify-content: center;
             flex-wrap: wrap;
         }
-
         .agency-footer {
             background: #1a472a;
             color: rgba(255,255,255,0.7);
@@ -467,7 +466,56 @@
         <p>Department of Agriculture | 1 N Capitol Ave | (123) 456-8770</p>
         <p style="margin-top: 6px;">This is a demo application for the MyState Digital Front Door project.</p>
     </div>
+
     <script src="chat-widget.js"></script>
+
+    <!-- Agentforce Agriculture Assistant -->
+    <script type='text/javascript'>
+        function initEmbeddedMessaging() {
+            try {
+                embeddedservice_bootstrap.settings.language = 'en_US';
+
+                // Pass URL params as pre-chat context so the agent knows who James is
+                const params = new URLSearchParams(window.location.search);
+                const fname = params.get('fname') || '';
+                const lname = params.get('lname') || '';
+                const farmName = params.get('farmName') || '';
+                const county = params.get('county') || '';
+                const crops = params.get('crops') || '';
+                const acreage = params.get('acreage') || '';
+                const acresAffected = params.get('acresAffected') || '';
+                const cropLoss = params.get('cropLoss') || '';
+                const financialImpact = params.get('financialImpact') || '';
+
+                embeddedservice_bootstrap.init(
+                    '00DKc00000C67eb',
+                    'Agency_X_Messaging_for_Web',
+                    'https://storm-a7ca23ca3f0711.my.site.com/ESWAgencyXMessa1792122804865',
+                    {
+                        scrt2URL: 'https://storm-a7ca23ca3f0711.my.salesforce-scrt.com'
+                    }
+                );
+
+                // Auto-open chat and send greeting once SDK is ready
+                window.addEventListener('onEmbeddedMessagingReady', function() {
+                    embeddedservice_bootstrap.utilAPI.launchChat();
+
+                    // Send opening context message if we know who this is
+                    if (fname) {
+                        setTimeout(function() {
+                            const greeting = 'Hi, I\'m ' + fname + ' ' + lname + '. I was referred here from the MyState Portal to apply for the Drought Relief Grant. My farm is ' + farmName + ' in ' + county + ' County — ' + acreage + ' acres total, ' + acresAffected + ' acres affected, growing ' + crops + '. Estimated crop loss is ' + cropLoss + '% and financial impact is $' + financialImpact + '.';
+                            embeddedservice_bootstrap.utilAPI.sendTextMessage(greeting);
+                        }, 1500);
+                    }
+                });
+
+            } catch (err) {
+                console.error('Error loading Embedded Messaging: ', err);
+            }
+        };
+    </script>
+    <script type='text/javascript' src='https://storm-a7ca23ca3f0711.my.site.com/ESWAgencyXMessa1792122804865/assets/js/bootstrap.min.js' onload='initEmbeddedMessaging()'></script>
+
     <script>
         function handleSubmit() {
             const num = 'DRG-2026-' + String(Math.floor(10000 + Math.random() * 90000));
