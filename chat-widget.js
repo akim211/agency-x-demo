@@ -46,14 +46,23 @@
     function getUrlParams() {
         const params = new URLSearchParams(window.location.search);
         return {
-            sessionId: params.get('sessionId') || null,
-            agentId: params.get('agentId') || null,
-            returnUrl: params.get('returnUrl') || null,
-            chatHistory: params.get('chatHistory') || null,
-            firstName: params.get('fname') || '',
-            lastName: params.get('lname') || '',
-            email: params.get('email') || '',
-            ssoId: params.get('sso_id') || ''
+            sessionId:       params.get('sessionId') || null,
+            agentId:         params.get('agentId') || null,
+            returnUrl:       params.get('returnUrl') || null,
+            chatHistory:     params.get('chatHistory') || null,
+            firstName:       params.get('fname') || '',
+            lastName:        params.get('lname') || '',
+            email:           params.get('email') || '',
+            phone:           params.get('phone') || '',
+            ssoId:           params.get('sso_id') || '',
+            county:          params.get('county') || '',
+            farmName:        params.get('farmName') || '',
+            farmReg:         params.get('farmReg') || '',
+            acreage:         params.get('acreage') || '',
+            crops:           params.get('crops') || '',
+            acresAffected:   params.get('acresAffected') || '',
+            cropLoss:        params.get('cropLoss') || '',
+            financialImpact: params.get('financialImpact') || ''
         };
     }
 
@@ -313,17 +322,25 @@
             if (!this.params.firstName && !this.params.lastName && !this.params.email) return;
 
             const fill = () => {
+                // Regular text/number/email/tel inputs
                 const fieldMap = {
-                    'fname': this.params.firstName,
-                    'first_name': this.params.firstName,
-                    'firstName': this.params.firstName,
-                    'lname': this.params.lastName,
-                    'last_name': this.params.lastName,
-                    'lastName': this.params.lastName,
-                    'email': this.params.email,
-                    'sso_id': this.params.ssoId,
-                    'sso_ref': this.params.ssoId,
-                    'referenceId': this.params.ssoId
+                    'fname':           this.params.firstName,
+                    'first_name':      this.params.firstName,
+                    'firstName':       this.params.firstName,
+                    'lname':           this.params.lastName,
+                    'last_name':       this.params.lastName,
+                    'lastName':        this.params.lastName,
+                    'email':           this.params.email,
+                    'phone':           this.params.phone,
+                    'sso_id':          this.params.ssoId,
+                    'sso_ref':         this.params.ssoId,
+                    'referenceId':     this.params.ssoId,
+                    'farmName':        this.params.farmName,
+                    'farmReg':         this.params.farmReg,
+                    'acreage':         this.params.acreage,
+                    'crops':           this.params.crops,
+                    'acresAffected':   this.params.acresAffected,
+                    'financialImpact': this.params.financialImpact
                 };
 
                 for (const [name, value] of Object.entries(fieldMap)) {
@@ -332,6 +349,23 @@
                     if (el && !el.value) {
                         el.value = value;
                         el.dispatchEvent(new Event('input', { bubbles: true }));
+                        el.dispatchEvent(new Event('change', { bubbles: true }));
+                        el.style.boxShadow = '0 0 0 2px rgba(1,118,211,0.3)';
+                        el.style.transition = 'box-shadow 0.3s ease';
+                    }
+                }
+
+                // Select (dropdown) fields
+                const selectMap = {
+                    'county':   (this.params.county || '').toLowerCase(),
+                    'cropLoss': this.params.cropLoss
+                };
+
+                for (const [name, value] of Object.entries(selectMap)) {
+                    if (!value) continue;
+                    const el = document.querySelector(`select[name="${name}"]`);
+                    if (el && !el.value) {
+                        el.value = value;
                         el.dispatchEvent(new Event('change', { bubbles: true }));
                         el.style.boxShadow = '0 0 0 2px rgba(1,118,211,0.3)';
                         el.style.transition = 'box-shadow 0.3s ease';
