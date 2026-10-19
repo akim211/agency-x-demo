@@ -583,6 +583,24 @@
         function escHtml(s) {
             return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
         }
+
+        (function() {
+            var params = new URLSearchParams(window.location.search);
+            var fields = ['fname','lname','email','sso_id'];
+            fields.forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el && params.get(id)) el.value = params.get(id);
+            });
+            var namedFields = ['farmName','acreage','crops','financialImpact'];
+            namedFields.forEach(function(name) {
+                var el = document.querySelector('[name="' + name + '"]');
+                if (el && params.get(name)) el.value = params.get(name);
+            });
+            var county = document.querySelector('[name="county"]');
+            if (county && params.get('county')) county.value = params.get('county');
+            var cropLoss = document.querySelector('[name="cropLoss"]');
+            if (cropLoss && params.get('cropLoss')) cropLoss.value = params.get('cropLoss');
+        })();
     </script>
 </body>
 </html>
