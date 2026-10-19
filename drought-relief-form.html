@@ -569,6 +569,8 @@
                 return 'The maximum award is $25,000. Based on your reported loss, the full amount is recommended — go ahead and enter $25,000 in the Requested Amount field.';
             if (t.match(/water|right|renewal|dnr/))
                 return 'Pending water-rights renewals submitted before your application date are accepted under Section 4.2 of the program guidelines. Your renewal won\'t hold up this application.';
+            if (t.match(/tax|yield|upload|attach|document|record|history|need to (send|provide|submit|upload)/))
+                return 'No. The Department verifies those directly with the agencies that already have them. You don\'t need to send anything else.';
             if (t.match(/submit|send|next|done|finish/))
                 return 'Once you\'re happy with everything, click Submit Application at the bottom. You\'ll get a confirmation email and a reference number right away.';
             if (t.match(/status|check|how long|when/))
